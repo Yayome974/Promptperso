@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Prompt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            max-width: 100%;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: none;
+            font-family: "Rubik", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+            font-style: normal;
+
+
+}
+        
+        .buttons {
+            margin-top: 15px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .reset {
+            background: #1e53a3;
+        }
+        .reset:hover {
+            background: #a71d2a;
+        }
+        @media screen and (max-width: 900px) { 
+
+    h2 {
+        color: #333;
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    .textePredefini2 {
+        max-width: 100%;
+        width: 100%;
+        word-wrap: break-word; /* Coupe le texte long */
+        overflow-wrap: break-word; /* Empêche le débordement */
+        white-space: normal; /* Permet au texte de revenir à la ligne */
+    
+}
+
+
+        }
+    </style>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            let textePredefini = document.getElementById("textePredefini");
+
+            // Charger le texte prédéfini depuis le Local Storage
+            textePredefini.value = localStorage.getItem("textePredefini") || "";
+
+            // Sauvegarder automatiquement quand l'utilisateur modifie
+            textePredefini.addEventListener("input", function () {
+                localStorage.setItem("textePredefini", textePredefini.value);
+            });
+        });
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            let textePredefini2 = document.getElementById("textePredefini2");
+
+            // Charger le texte prédéfini depuis le Local Storage
+            textePredefini2.value = localStorage.getItem("textePredefini2") || "";
+
+            // Sauvegarder automatiquement quand l'utilisateur modifie
+            textePredefini2.addEventListener("input", function () {
+                localStorage.setItem("textePredefini2", textePredefini2.value);
+            });
+        });
+        function copierTexte() {
+            let textePredefini = document.getElementById("textePredefini").value;
+            let textePerso = document.getElementById("textePerso").value;
+            let texteFinal = textePredefini + ":" + textePerso; 
+
+            navigator.clipboard.writeText(texteFinal).then(() => {
+                alert("Texte copié avec succès !");
+            }).catch(err => {
+                console.error("Erreur de copie", err);
+            });
+        }
+        function copierTexte2() {
+    let textePredefini2 = document.getElementById("textePredefini2").value;
+    let textePerso2 = document.getElementById("textePerso2").value;
+    let texteFinal = textePredefini2 + ":" + textePerso2; 
+
+    navigator.clipboard.writeText(texteFinal).then(() => {
+        alert("Texte copié avec succès !");
+    }).catch(err => {
+        console.error("Erreur de copie", err);
+    });
+}
+
+
+        function resetPredefini() {
+            document.getElementById("textePredefini").value = "";
+            localStorage.removeItem("textePredefini");
+        }
+        function resetPredefini() {
+            document.getElementById("textePredefini2").value = "";
+            localStorage.removeItem("textePredefini2");
+        }
+        
+    </script>
+
+
+    
+</head>
+<body>
+    <div class="container">
+        <h2>🔹 Générateur de Prompt 🔹</h2>
+        
+        <label class="place" for="textePredefini">Texte prédéfini :</label>
+        <input type="text" id="textePredefini" placeholder="Entre ton texte de base...">
+        <button class="reset" onclick="resetPredefini()">Réinitialiser</button>
+        
+        <label for="textePerso" id="tontexteperso">Ton texte perso :</label>
+        <textarea id="textePerso" placeholder="Ajoute ta touche personnelle ici..."></textarea>
+
+        <div class="buttons">
+            <button onclick="copierTexte()">📋 Copier le texte</button>
+        </div>
+    </div>
+    <div class="container">
+        <h2>🔹 Générateur de Prompt 2🔹</h2>
+        
+        <label class="place" for="textePredefini">Texte prédéfini :</label>
+        <input type="text" id="textePredefini2" placeholder="Entre ton texte de base...">
+        <button class="reset" onclick="resetPredefini()">Réinitialiser</button>
+        
+        <label id="tontexteperso2" for="textePerso2">Ton texte perso :</label>
+        <textarea id="textePerso2" placeholder="Ajoute ta touche personnelle ici..."></textarea>
+
+        <div class="buttons">
+            <button onclick="copierTexte2()">📋 Copier le texte</button>
+        </div>
+    </div>
+    <button id="colorBtn">Changer la couleur</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const colorchange = document.getElementById("colorBtn");
+    
+            colorchange.addEventListener("click", function() {
+                // Appliquer la couleur de fond au body
+                document.body.style.backgroundColor = "#1a1a1a";  // Appliquer le gris foncé au fond
+    
+                // Appliquer un fond noir aux éléments avec la classe "container"
+                const containers = document.querySelectorAll(".container");
+                containers.forEach(container => {
+                    container.style.background = "#2a2a2a";  // Appliquer le fond gris foncé
+                });
+    
+                // Appliquer la couleur blanche à tout le texte dans la page
+                document.body.style.color = "white";  // Changer la couleur du texte globalement
+    
+                // Assurer que tous les h2, h1 et autres titres sont blancs
+                const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+                titles.forEach(title => {
+                    title.style.color = "white";  // Changer la couleur des titres en blanc
+                });
+
+    
+                // Changer la couleur de fond des textarea
+                const area = document.querySelectorAll("textarea");
+                area.forEach(a => {
+                    a.style.backgroundColor = "#3b3b3b";  // Appliquer un fond gris plus clair
+                    a.style.color = "white";
+                });
+            });
+        });
+
+    
+
+</script>
+    
+</body>
+</html>
+textePerso
