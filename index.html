@@ -153,14 +153,15 @@
             let texteFinal = ` ${textePredefini}  ${textePerso}`;
             navigator.clipboard.writeText(texteFinal).then(() => {
                 alert("Texte copié avec succès !");
+                setTimeout(function() {
+            window.open("https://www.chatgpt.com", "blank");
+        }, 1200);  // 1200 millisecondes = 1,2 seconde
+        
             }).catch(err => {
                 console.error("Erreur de copie", err);
             });
         
-            setTimeout(function() {
-            window.open("https://www.chatgpt.com", "blank");
-        }, 1200)};  // 1200 millisecondes = 1,2 seconde
-        
+        }
     
 
  
