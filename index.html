@@ -23,6 +23,7 @@
             max-width: 500px;
             margin: auto;
             margin-bottom: 20px;
+            margin-top: 20px;
         }
         h2 {
             color: #333;
@@ -75,6 +76,30 @@
         .reset:hover {
             background: #a71d2a;
         }
+    .category-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.category-container label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#categorie {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
         @media screen and (max-width: 900px) { 
 
     h2 {
@@ -121,16 +146,24 @@
             });
         });
         function copierTexte() {
+            let categorie = document.getElementById("categorie").value;
             let textePredefini = document.getElementById("textePredefini").value;
             let textePerso = document.getElementById("textePerso").value;
-            let texteFinal = textePredefini + ":" + textePerso; 
-
+            
+            let texteFinal = ` ${textePredefini}  ${textePerso}`;
             navigator.clipboard.writeText(texteFinal).then(() => {
                 alert("Texte copié avec succès !");
             }).catch(err => {
                 console.error("Erreur de copie", err);
             });
-        }
+        
+            setTimeout(function() {
+            window.open("https://www.chatgpt.com", "blank");
+        }, 1200)};  // 1200 millisecondes = 1,2 seconde
+        
+    
+
+ 
         function copierTexte2() {
     let textePredefini2 = document.getElementById("textePredefini2").value;
     let textePerso2 = document.getElementById("textePerso2").value;
@@ -148,7 +181,7 @@
             document.getElementById("textePredefini").value = "";
             localStorage.removeItem("textePredefini");
         }
-        function resetPredefini() {
+        function resetPredefini2() {
             document.getElementById("textePredefini2").value = "";
             localStorage.removeItem("textePredefini2");
         }
@@ -159,6 +192,14 @@
     
 </head>
 <body>
+    <label for="categorie">Catégorie :</label>
+    <select id="categorie">
+        <option value="Fais une fiche de révision">Révision</option>
+        <option value="Continue la rédaction de mon texte">Continuer une rédaction</option>
+        <option value="Reformuler un texte">Reformuler un texte</option>
+        <option value="trouve des idees">Trouver des idées</option>
+        <option value="">Autre</option>
+    </select>
     <div class="container">
         <h2>🔹 Générateur de Prompt 🔹</h2>
         
@@ -178,7 +219,7 @@
         
         <label class="place" for="textePredefini">Texte prédéfini :</label>
         <input type="text" id="textePredefini2" placeholder="Entre ton texte de base...">
-        <button class="reset" onclick="resetPredefini()">Réinitialiser</button>
+        <button class="reset" onclick="resetPredefini2()">Réinitialiser</button>
         
         <label id="tontexteperso2" for="textePerso2">Ton texte perso :</label>
         <textarea id="textePerso2" placeholder="Ajoute ta touche personnelle ici..."></textarea>
@@ -187,44 +228,115 @@
             <button onclick="copierTexte2()">📋 Copier le texte</button>
         </div>
     </div>
-    <button id="colorBtn">Changer la couleur</button>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const colorchange = document.getElementById("colorBtn");
-    
-            colorchange.addEventListener("click", function() {
-                // Appliquer la couleur de fond au body
-                document.body.style.backgroundColor = "#1a1a1a";  // Appliquer le gris foncé au fond
-    
-                // Appliquer un fond noir aux éléments avec la classe "container"
-                const containers = document.querySelectorAll(".container");
-                containers.forEach(container => {
-                    container.style.background = "#2a2a2a";  // Appliquer le fond gris foncé
-                });
-    
-                // Appliquer la couleur blanche à tout le texte dans la page
-                document.body.style.color = "white";  // Changer la couleur du texte globalement
-    
-                // Assurer que tous les h2, h1 et autres titres sont blancs
-                const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-                titles.forEach(title => {
-                    title.style.color = "white";  // Changer la couleur des titres en blanc
-                });
+    <button id="colorBtn">Switch Mode</button>
+
+
+
 
     
-                // Changer la couleur de fond des textarea
-                const area = document.querySelectorAll("textarea");
-                area.forEach(a => {
-                    a.style.backgroundColor = "#3b3b3b";  // Appliquer un fond gris plus clair
-                    a.style.color = "white";
-                });
-            });
+
+
+    <script>
+// script.js
+document.addEventListener("DOMContentLoaded", function () {
+    const colorChangeButton = document.getElementById("colorBtn");
+
+    // Fonction pour activer le mode sombre
+    function enableDarkMode() {
+        // Appliquer le fond sombre à la page
+        document.body.style.backgroundColor = "#1a1a1a";
+        document.body.style.color = "white";
+
+        // Appliquer le fond sombre aux éléments .container
+        const containers = document.querySelectorAll(".container");
+        containers.forEach(container => {
+            container.style.backgroundColor = "#2a2a2a";
+            container.style.color = "white"; // Texte blanc à l'intérieur du conteneur
         });
 
+        // Appliquer le fond sombre aux autres éléments
+        const areas = document.querySelectorAll("textarea");
+        areas.forEach(area => {
+            area.style.backgroundColor = "#3b3b3b"; // Fond gris plus clair pour les textarea
+            area.style.color = "white"; // Texte blanc dans les textarea
+        });
+
+        // Appliquer les titres en blanc
+        const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        titles.forEach(title => {
+            title.style.color = "white"; // Changer la couleur des titres en blanc
+        });
+    }
+
+    // Fonction pour activer le mode clair
+    function enableLightMode() {
+        // Appliquer le fond clair à la page
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+
+        // Appliquer le fond clair aux éléments .container
+        const containers = document.querySelectorAll(".container");
+        containers.forEach(container => {
+            container.style.backgroundColor = "white";
+            container.style.color = "black"; // Texte noir à l'intérieur du conteneur
+        });
+
+        // Appliquer les autres éléments comme textarea en mode clair
+        const areas = document.querySelectorAll("textarea");
+        areas.forEach(area => {
+            area.style.backgroundColor = "white"; // Fond blanc pour les textarea
+            area.style.color = "black"; // Texte noir dans les textarea
+        });
+
+        // Appliquer les titres en noir
+        const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        titles.forEach(title => {
+            title.style.color = "black"; // Changer la couleur des titres en noir
+        });
+    }
+
+    // Écouter le clic sur le bouton pour changer de mode
+    colorChangeButton.addEventListener("click", function () {
+        // Vérifier si le body a déjà un fond sombre
+        if (document.body.style.backgroundColor === "rgb(26, 26, 26)") { // rgb(26, 26, 26) est le code pour #1a1a1a
+            enableLightMode(); // Si mode sombre est déjà activé, passer en mode clair
+        } else {
+            enableDarkMode(); // Sinon, passer en mode sombre
+        }
+    });
+});
+
+
     
+        document.addEventListener("DOMContentLoaded", function () {
+    const categorieSelect = document.getElementById("categorie");
+    const textePredefini = document.getElementById("textePredefini");
+
+    // Textes correspondant aux catégories
+    const textesParCategorie = {
+        "Fais une fiche de révision": "Je veux réviser ce sujet : ",
+        "Continue la rédaction de mon texte": "Peux-tu continuer cette rédaction ? ",
+        "Reformuler un texte": "Peux-tu reformuler ce texte : ",
+        "trouve des idees": "Peux-tu me proposer des idées sur ce sujet ? "
+    };
+
+    // Charger la catégorie et le texte prédéfini depuis le Local Storage
+    categorieSelect.value = localStorage.getItem("categorie") || "Fais une fiche de révision";
+    textePredefini.value = localStorage.getItem("textePredefini") || textesParCategorie[categorieSelect.value];
+
+    // Sauvegarder automatiquement la catégorie dans le Local Storage lorsque l'utilisateur change de catégorie
+    categorieSelect.addEventListener("change", function () {
+        localStorage.setItem("categorie", categorieSelect.value);
+        textePredefini.value = textesParCategorie[categorieSelect.value] || ""; // Mettre à jour le texte prédéfini en fonction de la catégorie choisie
+    });
+
+    // Sauvegarder le texte prédéfini dans le Local Storage lorsqu'il est modifié
+    textePredefini.addEventListener("input", function () {
+        localStorage.setItem("textePredefini", textePredefini.value);
+    });
+});
 
 </script>
     
 </body>
 </html>
-textePerso
