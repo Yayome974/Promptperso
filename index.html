@@ -146,23 +146,24 @@
             });
         });
         function copierTexte() {
-            let categorie = document.getElementById("categorie").value;
-            let textePredefini = document.getElementById("textePredefini").value;
-            let textePerso = document.getElementById("textePerso").value;
-            
-            let texteFinal = ` ${textePredefini}  ${textePerso}`;
-            navigator.clipboard.writeText(texteFinal).then(() => {
-                alert("Texte copié avec succès !");
-                setTimeout(function() {
-            window.open("https://www.chatgpt.com", "blank");
+    let categorie = document.getElementById("categorie").value;
+    let textePredefini = document.getElementById("textePredefini").value;
+    let textePerso = document.getElementById("textePerso").value;
+    let texteFinal = `${textePredefini} ${textePerso}`;
+    
+    // Copier le texte dans le presse-papier
+    navigator.clipboard.writeText(texteFinal).then(() => {
+        alert("Texte copié avec succès !");
+        
+        // Attendre 1,2 seconde avant d'ouvrir la fenêtre
+        setTimeout(function() {
+            window.open("https://www.google.fr", "blank");
         }, 1200);  // 1200 millisecondes = 1,2 seconde
         
-            }).catch(err => {
-                console.error("Erreur de copie", err);
-            });
-        
-        }
-    
+    }).catch(err => {
+        console.error("Erreur de copie", err);
+    });
+}
 
  
         function copierTexte2() {
