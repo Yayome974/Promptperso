@@ -53,7 +53,18 @@
 
 
 }
-        
+.button1 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button1:hover {
+    background-color: #45a049;
+}
+    
         .buttons {
             margin-top: 15px;
         }
@@ -87,7 +98,9 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
-
+.button1 {
+    background-color: #a71d2a;
+}
 .category-container label {
     font-weight: bold;
     margin-right: 10px;
@@ -155,15 +168,37 @@
     navigator.clipboard.writeText(texteFinal).then(() => {
         alert("Texte copié avec succès !");
         
-        // Attendre 1,2 seconde avant d'ouvrir la fenêtre
-        setTimeout(function() {
-            window.open("https://www.google.fr", "blank");
-        }, 1200);  // 1200 millisecondes = 1,2 seconde
+        // Sélectionner l'élément avec l'ID "button1"
+        const element = document.getElementById("button1");  
         
+        // Vérifier que l'élément existe avant d'appliquer scrollIntoView
+ 
+
+        // Montrer le bouton pour ouvrir la fenêtre après 1,2 seconde
+        setTimeout(function() {
+            // Afficher un bouton d'action avec un ID défini
+            const ouvrirFenetreBtn = document.createElement("button");
+            ouvrirFenetreBtn.textContent = "Ouvrir la fenêtre";
+            ouvrirFenetreBtn.id = "button1";  // Ajouter l'ID pour le bouton
+            ouvrirFenetreBtn.classList.add("button1");
+
+            ouvrirFenetreBtn.onclick = function() {
+                window.open("https://www.google.fr", "blank");
+            };
+            document.body.appendChild(ouvrirFenetreBtn);
+
+            // Appliquer un défilement fluide après l'ajout du bouton
+            ouvrirFenetreBtn.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }, 100);  // Attendre 1,2 secondes avant de montrer le bouton
     }).catch(err => {
         console.error("Erreur de copie", err);
     });
 }
+
+
 
  
         function copierTexte2() {
