@@ -3,377 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Prompt</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <title>Calculateur de Pompes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         body {
+            background-color: #f0f8ff;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
         }
         .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
             max-width: 500px;
-            margin: auto;
-            margin-bottom: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container2 {
+            margin: 50px auto; /* Centrer horizontalement */
+        max-width: 500px;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+            
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .contenue {
+            text-align: center;
+        }
+        .seancedujour {
             margin-top: 20px;
+            font-size: 23px;
         }
-        h2 {
-            color: #333;
-            max-width: 100%;
-        }
-        
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        textarea {
-            height: 100px;
-            resize: none;
-            font-family: "Rubik", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: weight;
-            font-style: normal;
-
-
-}
-.button1 {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.button1:hover {
-    background-color: #45a049;
-}
-    
-        .buttons {
-            margin-top: 15px;
-        }
-        button {
-            background: #007BFF;
-            color: white;
+        .btn-primary2 {
+            background-color: #ffffff;
             border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
+            margin-top: 0px;
         }
-        button:hover {
-            background: #0056b3;
+        .btn-primary2:hover {
+            background-color: #2854a5;
+            border: none;
+            margin-top: 0px;
+            color: #f0f8ff;
         }
-        .reset {
-            background: #1e53a3;
+
+        .progress {
+            height: 25px;
         }
-        .reset:hover {
-            background: #a71d2a;
+        .progress-bar {
+            font-size: 1rem;
         }
-    .category-container {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-.button1 {
-    background-color: #a71d2a;
-}
-.category-container label {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-#categorie {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-        @media screen and (max-width: 900px) { 
-
-    h2 {
-        color: #333;
-        font-size: 20px;
-    }
-
-    input[type="text"],
-    .textePredefini2 {
-        max-width: 100%;
-        width: 100%;
-        word-wrap: break-word; /* Coupe le texte long */
-        overflow-wrap: break-word; /* Empêche le débordement */
-        white-space: normal; /* Permet au texte de revenir à la ligne */
-    
-}
-
-
+        .form-label2 {
+            margin-top: 24px;
         }
     </style>
-    <script>
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            let textePredefini = document.getElementById("textePredefini");
-
-            // Charger le texte prédéfini depuis le Local Storage
-            textePredefini.value = localStorage.getItem("textePredefini") || "";
-
-            // Sauvegarder automatiquement quand l'utilisateur modifie
-            textePredefini.addEventListener("input", function () {
-                localStorage.setItem("textePredefini", textePredefini.value);
-            });
-        });
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            let textePredefini2 = document.getElementById("textePredefini2");
-
-            // Charger le texte prédéfini depuis le Local Storage
-            textePredefini2.value = localStorage.getItem("textePredefini2") || "";
-
-            // Sauvegarder automatiquement quand l'utilisateur modifie
-            textePredefini2.addEventListener("input", function () {
-                localStorage.setItem("textePredefini2", textePredefini2.value);
-            });
-        });
-        function copierTexte() {
-    let categorie = document.getElementById("categorie").value;
-    let textePredefini = document.getElementById("textePredefini").value;
-    let textePerso = document.getElementById("textePerso").value;
-    let texteFinal = `${textePredefini} ${textePerso}`;
-    
-    // Copier le texte dans le presse-papier
-    navigator.clipboard.writeText(texteFinal).then(() => {
-        alert("Texte copié avec succès !");
-        
-        // Sélectionner l'élément avec l'ID "button1"
-        const element = document.getElementById("button1");  
-        
-        // Vérifier que l'élément existe avant d'appliquer scrollIntoView
- 
-
-        // Montrer le bouton pour ouvrir la fenêtre après 1,2 seconde
-        setTimeout(function() {
-            // Afficher un bouton d'action avec un ID défini
-            const ouvrirFenetreBtn = document.createElement("button");
-            ouvrirFenetreBtn.textContent = "Ouvrir la fenêtre";
-            ouvrirFenetreBtn.id = "button1";  // Ajouter l'ID pour le bouton
-            ouvrirFenetreBtn.classList.add("button1");
-
-            ouvrirFenetreBtn.onclick = function() {
-                window.open("https://www.google.fr", "blank");
-            };
-            document.body.appendChild(ouvrirFenetreBtn);
-
-            // Appliquer un défilement fluide après l'ajout du bouton
-            ouvrirFenetreBtn.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-        }, 100);  // Attendre 1,2 secondes avant de montrer le bouton
-    }).catch(err => {
-        console.error("Erreur de copie", err);
-    });
-}
-
-
-
- 
-        function copierTexte2() {
-    let textePredefini2 = document.getElementById("textePredefini2").value;
-    let textePerso2 = document.getElementById("textePerso2").value;
-    let texteFinal = textePredefini2 + ":" + textePerso2; 
-
-    navigator.clipboard.writeText(texteFinal).then(() => {
-        alert("Texte copié avec succès !");
-    }).catch(err => {
-        console.error("Erreur de copie", err);
-    });
-}
-
-
-        function resetPredefini() {
-            document.getElementById("textePredefini").value = "";
-            localStorage.removeItem("textePredefini");
-        }
-        function resetPredefini2() {
-            document.getElementById("textePredefini2").value = "";
-            localStorage.removeItem("textePredefini2");
-        }
-        
-    </script>
-
-
-    
 </head>
 <body>
-    <label for="categorie">Catégorie :</label>
-    <select id="categorie">
-        <option value="Fais une fiche de révision">Révision</option>
-        <option value="Continue la rédaction de mon texte">Continuer une rédaction</option>
-        <option value="Reformuler un texte">Reformuler un texte</option>
-        <option value="trouve des idees">Trouver des idées</option>
-        <option value="">Autre</option>
-    </select>
     <div class="container">
-        <h2>🔹 Générateur de Prompt 🔹</h2>
-        
-        <label class="place" for="textePredefini">Texte prédéfini :</label>
-        <input type="text" id="textePredefini" placeholder="Entre ton texte de base...">
-        <button class="reset" onclick="resetPredefini()">Réinitialiser</button>
-        
-        <label for="textePerso" id="tontexteperso">Ton texte perso :</label>
-        <textarea id="textePerso" placeholder="Ajoute ta touche personnelle ici..."></textarea>
+        <h1>Calculateur de Pompes</h1>
 
-        <div class="buttons">
-            <button onclick="copierTexte()">📋 Copier le texte</button>
+        <div class="mb-3">
+            <label for="date" class="form-label">Sélectionne une date :</label>
+            <input type="date" id="date" class="form-control">
         </div>
-    </div>
-    <div class="container">
-        <h2>🔹 Générateur de Prompt 2🔹</h2>
-        
-        <label class="place" for="textePredefini">Texte prédéfini :</label>
-        <input type="text" id="textePredefini2" placeholder="Entre ton texte de base...">
-        <button class="reset" onclick="resetPredefini2()">Réinitialiser</button>
-        
-        <label id="tontexteperso2" for="textePerso2">Ton texte perso :</label>
-        <textarea id="textePerso2" placeholder="Ajoute ta touche personnelle ici..."></textarea>
 
-        <div class="buttons">
-            <button onclick="copierTexte2()">📋 Copier le texte</button>
+        <button class="btn btn-primary w-100" onclick="calculerPompes()">Calculer</button>
+        <div class="mb-3">
+            <label for="nombreInput" class="form-label2">A-tu manqué des jours ?</label>
+            <input type="number" id="nombreInput" class="form-control" min="0">
         </div>
+        <button class="btn btn-primary2 w-100" onclick="calculerPompesmanque()">Validé mes jours manqué ✅</button>
+
+
+        <div class="alert alert-info mt-4" id="resultat" style="display: none;"></div>
+
+        <div id="progression-container" class="mt-4" style="display: none;">
+            <p><strong>Progression de l'année :</strong></p>
+            <p><strong>Progression :</strong> <span id="pourcentageProgression">0%</span></p>
+            <div class="progress">
+                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+            </div>
+        </div>
+
+
     </div>
-    <button id="colorBtn">Switch Mode</button>
-
-
-
-
-    
-
+    <div class="container2">
+        <h1>Séance de sport</h1>
+<p id="seance" class="seance"></p>
+        <p id="contenue" class="contenue"></p>
+    </div>
 
     <script>
-// script.js
-document.addEventListener("DOMContentLoaded", function () {
-    const colorChangeButton = document.getElementById("colorBtn");
-
-    // Fonction pour activer le mode sombre
-    function enableDarkMode() {
-        // Appliquer le fond sombre à la page
-        document.body.style.backgroundColor = "#1a1a1a";
-        document.body.style.color = "white";
-
-        // Appliquer le fond sombre aux éléments .container
-        const containers = document.querySelectorAll(".container");
-        containers.forEach(container => {
-            container.style.backgroundColor = "#2a2a2a";
-            container.style.color = "white"; // Texte blanc à l'intérieur du conteneur
+        document.addEventListener("DOMContentLoaded", () => {
+            const aujourdHui = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = aujourdHui;
         });
 
-        // Appliquer le fond sombre aux autres éléments
-        const areas = document.querySelectorAll("textarea");
-        areas.forEach(area => {
-            area.style.backgroundColor = "#3b3b3b"; // Fond gris plus clair pour les textarea
-            area.style.color = "white"; // Texte blanc dans les textarea
-        });
-
-        // Appliquer les titres en blanc
-        const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-        titles.forEach(title => {
-            title.style.color = "white"; // Changer la couleur des titres en blanc
-        });
-    }
-
-    // Fonction pour activer le mode clair
-    function enableLightMode() {
-        // Appliquer le fond clair à la page
-        document.body.style.backgroundColor = "white";
-        document.body.style.color = "black";
-
-        // Appliquer le fond clair aux éléments .container
-        const containers = document.querySelectorAll(".container");
-        containers.forEach(container => {
-            container.style.backgroundColor = "white";
-            container.style.color = "black"; // Texte noir à l'intérieur du conteneur
-        });
-
-        // Appliquer les autres éléments comme textarea en mode clair
-        const areas = document.querySelectorAll("textarea");
-        areas.forEach(area => {
-            area.style.backgroundColor = "white"; // Fond blanc pour les textarea
-            area.style.color = "black"; // Texte noir dans les textarea
-        });
-
-        // Appliquer les titres en noir
-        const titles = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-        titles.forEach(title => {
-            title.style.color = "black"; // Changer la couleur des titres en noir
-        });
-    }
-
-    // Écouter le clic sur le bouton pour changer de mode
-    colorChangeButton.addEventListener("click", function () {
-        // Vérifier si le body a déjà un fond sombre
-        if (document.body.style.backgroundColor === "rgb(26, 26, 26)") { // rgb(26, 26, 26) est le code pour #1a1a1a
-            enableLightMode(); // Si mode sombre est déjà activé, passer en mode clair
-        } else {
-            enableDarkMode(); // Sinon, passer en mode sombre
+        function lireNombre() {
+            const nombre = document.getElementById("nombreInput").value;
+            const nombreConverti = parseInt(nombre, 10);
+            
+            if (!isNaN(nombreConverti) && nombreConverti >= 0) {
+                return nombreConverti;
+            } else {
+                alert("Veuillez entrer un nombre valide.");
+                return null;
+            }
         }
-    });
-});
 
+        function calculerPompesmanque() {
+            const dateInput = document.getElementById('date').value;
+            if (!dateInput) {
+                alert("Veuillez sélectionner une date !");
+                return;
+            }
 
-    
-        document.addEventListener("DOMContentLoaded", function () {
-    const categorieSelect = document.getElementById("categorie");
-    const textePredefini = document.getElementById("textePredefini");
+            const nombreManque = lireNombre();
+            if (nombreManque === null) return; // Quitte si le nombre est invalide
 
-    // Textes correspondant aux catégories
-    const textesParCategorie = {
-        "Fais une fiche de révision": "Je veux réviser ce sujet : ",
-        "Continue la rédaction de mon texte": "Peux-tu continuer cette rédaction ? ",
-        "Reformuler un texte": "Peux-tu reformuler ce texte : ",
-        "trouve des idees": "Peux-tu me proposer des idées sur ce sujet ? "
-    };
+            const dateSelectionnee = new Date(dateInput);
+            const dateDebut = new Date(dateSelectionnee.getFullYear(), 0, 1);
+            
+            const joursEcoules = Math.floor((dateSelectionnee - dateDebut) / (1000 * 60 * 60 * 24)) + 1;
+            const nombreTotalPompes = ((joursEcoules * (joursEcoules + 1)) / 2) - nombreManque;
+            const pompesAujourdhui = joursEcoules * nombreManque;
+            const serieRecommande = Math.ceil(pompesAujourdhui / 5);
 
-    // Charger la catégorie et le texte prédéfini depuis le Local Storage
-    categorieSelect.value = localStorage.getItem("categorie") || "Fais une fiche de révision";
-    textePredefini.value = localStorage.getItem("textePredefini") || textesParCategorie[categorieSelect.value];
+            const resultatElement = document.getElementById('resultat');
+            resultatElement.innerHTML = `
+                <p><strong>Nombre total de pompes :</strong> ${nombreTotalPompes}</p>
+                <p><strong>Pompes à faire aujourd'hui :</strong> ${pompesAujourdhui}</p>
+                <p><strong>Série recommandée :</strong> 5 séries de ${serieRecommande} pompes</p>
+            `;
+            resultatElement.style.display = 'block';
 
-    // Sauvegarder automatiquement la catégorie dans le Local Storage lorsque l'utilisateur change de catégorie
-    categorieSelect.addEventListener("change", function () {
-        localStorage.setItem("categorie", categorieSelect.value);
-        textePredefini.value = textesParCategorie[categorieSelect.value] || ""; // Mettre à jour le texte prédéfini en fonction de la catégorie choisie
-    });
+            calculerProgression();
+        }
 
-    // Sauvegarder le texte prédéfini dans le Local Storage lorsqu'il est modifié
-    textePredefini.addEventListener("input", function () {
-        localStorage.setItem("textePredefini", textePredefini.value);
-    });
-});
+        function calculerPompes() {
+            const dateInput = document.getElementById('date').value;
+            if (!dateInput) {
+                alert("Veuillez sélectionner une date !");
+                return;
+            }
 
-</script>
-    
+            const dateSelectionnee = new Date(dateInput);
+            const dateDebut = new Date(dateSelectionnee.getFullYear(), 0, 1);
+            
+            const joursEcoules = Math.floor((dateSelectionnee - dateDebut) / (1000 * 60 * 60 * 24)) + 1;
+            const nombreTotalPompes = (joursEcoules * (joursEcoules + 1)) / 2;
+            const serieRecommande = Math.ceil(joursEcoules / 5);
+
+            const resultatElement = document.getElementById('resultat');
+            resultatElement.innerHTML = `
+                <p><strong>Nombre total de pompes :</strong> ${nombreTotalPompes}</p>
+                <p><strong>Pompes à faire aujourd'hui :</strong> ${joursEcoules}</p>
+                <p><strong>Série recommandée :</strong> 5 séries de ${serieRecommande} pompes</p>
+            `;
+            resultatElement.style.display = 'block';
+
+            calculerProgression();
+        }
+
+        function calculerProgression() {
+            const aujourdHui = new Date();
+            const debutAnnee = new Date(aujourdHui.getFullYear(), 0, 1);
+            const joursEcoules = Math.floor((aujourdHui - debutAnnee) / (1000 * 60 * 60 * 24)) + 1;
+            const joursDansAnnee = (aujourdHui.getFullYear() % 4 === 0) ? 366 : 365;
+            
+            const pourcentage = Math.min(100, (joursEcoules / joursDansAnnee) * 100);
+
+            const progressBar = document.getElementById('progressBar');
+            document.getElementById('pourcentageProgression').innerText = `${Math.round(pourcentage)}%`;
+            progressBar.style.width = `${pourcentage}%`;
+            progressBar.innerText = `${Math.round(pourcentage)}%`;
+            
+            document.getElementById('progression-container').style.display = 'block';
+        }
+        document.getElementById("seance").textContent = "chargement...";
+        const jours = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+        const aujourdHui = jours[new Date().getDay()];
+        document.getElementById("seance").textContent = "Aujourd'hui, nous sommes " + aujourdHui + "."
+        const seance = {
+            "lundi": {
+                titre: "repos",
+                description: "pas de séance Aujourd'hui",
+                exercices: ["❌"]
+                },            
+            "mardi": {
+                titre: "Poitrine & Triceps",
+                description: "Renforcement des biceps et triceps",
+                exercices: [
+                    { nom: "Pompes classiques 3 × 15" },
+                    { nom: "Pompes diamant (triceps) 3 × 12" },
+                    { nom: "Pompes bras écarté  3 × 12" },
+                    { nom: "Écarté couché haltères 3 × 12" },
+                    { nom: "Dips sur chaise 3 × 15" }
+        ]
+    },
+
+            "mercredi": {
+                titre: "Dos & Biceps",
+                description: "Renforcement du Dos et des Biceps ",
+                exercices: [
+                    {nom : "Rowing haltères – 3 × 12 (chaque bras)"},
+                    {nom : "Tirage haltères à un bras – 3 × 12"},
+                    {nom : "Biceps curl haltères – 3 × 12"},
+                    {nom : "Hammer curl haltères – 3 × 12"},
+                    {nom : "Superman hold (gainage lombaire) – 3 × 30 sec"},
+
+                ]
+                }, 
+            "jeudi": {
+                titre: "Jambes & Fessiers",
+                description: "Renforcement des jambes et des fessiers",
+                video: "https://www.youtube.com/watch?v=2z8JmcrWAs0",
+                exercices: [
+                    {nom : "Squats haltères – 3 × 15"},
+                    {nom : "Fentes avant avec haltères – 3 × 12 (chaque jambe)"},
+                    {nom : "Soulevé de terre jambes tendues haltères – 3 × 12"},
+                    {nom : "Hip thrust sur chaise – 3 × 15"},
+                    {nom : "Mollets debout (élevés sur pointe) – 3 × 15"},
+                    
+                ]
+                }, 
+            "vendredi": {
+                titre: "repos",
+                description: "pas de séance Aujourd'hui",
+                exercices: ["❌"]
+                }, 
+            "samedi": {
+                titre: " Épaules & Trapèzes",
+                description: "musculation des épaules",
+                exercices: [
+                    {nom : "Mollets debout (élevés sur pointe) – 3 × 15"},
+                    {nom : "Élévations latérales haltères – 3 × 12"},
+                    {nom : "Oiseau haltères (arrière des épaules) – 3 × 12"},
+                    {nom : "Shrugs haltères (trapèzes) – 3 × 15"},
+                    {nom : "Gainage planche – 3 × 30 sec5"},
+                ]
+                }, 
+            "dimanche": {
+                titre: "Abdos & Gainage",
+                description: "renforcement des abdos et gainage",
+                video: "https://www.youtube.com/watch?v=2z8JmcrWAs0",
+                exercices: [
+                { nom: "Crunchs classiques – 3 × 15", url: "https://example.com/crunchs" },
+                { nom: "Relevés de jambes – 3 × 12", url: "https://example.com/releves" },
+                { nom: "Russian twists haltères – 3 × 20 (10 de chaque côté)", url: "https://example.com/twists" },
+                { nom: "Planche latérale – 3 × 30 sec (chaque côté)", url: "https://example.com/planche" },
+                { nom: "Mountain climbers – 3 × 20", url: "https://example.com/mountain" },
+                ]
+                }, 
+        };
+        const seanceDuJour = seance[aujourdHui];
+
+        document.getElementById("seance").innerHTML = `
+        <h3 class="seancedujour">${seanceDuJour.titre} :</h3>
+        <p>${seanceDuJour.description} </p>
+        <ul>
+            ${seanceDuJour.exercices.map(itml => `<li><a href="${itml.url}" target="blank"> ${itml.nom}</a></li>`).join("")}
+        </ul>
+    `;
+
+if (seanceDuJour.nom === "Crunchs classiques – 3 × 15")
+    var e = document.getElementById('seance');
+    e.style.color = 'black';
+    </script>
 </body>
 </html>
